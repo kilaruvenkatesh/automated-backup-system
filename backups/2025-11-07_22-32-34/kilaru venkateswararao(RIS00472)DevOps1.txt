@@ -1,0 +1,33 @@
+devOps: what devOps is..?
+ 	what it requires to do well as devOps engineer..?
+
+
+## what devOps: DevOps is a collaborative culture and set of practices that bridges the gap between 
+	software development (Dev) and IT operations (Ops). It emphasizes automation, continuous integration, 
+	continuous delivery, and close collaboration to deliver high-quality software faster and more reliably.
+
+Core Principles of DevOps:
+1. Collaboration & Communication
+Breaking down silos between development, operations, QA, and business teams to improve teamwork and shared responsibility.
+2. Automation
+Automating builds, testing, deployments, and infrastructure management to reduce manual errors and save time.
+3. Continuous Improvement
+Constantly monitoring, measuring, and improving processes, tools, and performance to deliver better outcomes.
+4. Customer-Centric Mindset
+Aligning software delivery with customer needs by providing fast feedback loops and frequent, reliable releases.
+
+## what it requires to do well as devOps engineer:
+Technical Skills
+	1.Operating Systems:Linux is crucial. 
+	2.Scripting and Programming:Python and Bash terminal is essential for automation. 
+	3.Cloud Platforms: AWS, Azure, or Google Cloud.
+	4.Containerization: we must understand and use containerization tools like Docker and orchestration platforms like Kubernetes. 
+	5.Infrastructure as Code(IaC): Terraform or Ansible is required to manage infrastructure programmatically. 
+	6.CI/CD: A deep understanding of continuous integration and continuous deployment pipelines is fundamental, using tools like Jenkins or GitHub Actions. 
+	7.Monitoring and Logging: Knowledge of tools like Prometheus, Grafana, and the ELK Stack is key for tracking performance and issues. 
+	8.Version Control: Strong skills with source code management systems like Git are a must. 
+
+
+
+
+
