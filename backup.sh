@@ -71,7 +71,7 @@ done
 
 # === List Mode ===
 if [[ "$LIST_MODE" == "true" ]]; then
-  log "📂 Listing available backups in $BACKUP_DESTINATION"
+  log " Listing available backups in $BACKUP_DESTINATION"
   echo "--------------------------------------------"
   ls -lh "$BACKUP_DESTINATION" | awk '{print $6, $7, $8, $9}'
   echo "--------------------------------------------"
@@ -81,11 +81,11 @@ fi
 # === Restore Mode ===
 if [[ "$RESTORE_MODE" == "true" ]]; then
   if [[ -z "$RESTORE_FILE" || -z "$RESTORE_PATH" ]]; then
-    log "❌ Usage: ./backup.sh --restore <file> --to <path>"
+    log " Usage: ./backup.sh --restore <file> --to <path>"
     exit 1
   fi
 
-  log "🧩 Starting restore process..."
+  log "Starting restore process..."
   log "Source file: $RESTORE_FILE"
   log "Destination: $RESTORE_PATH"
 
@@ -97,7 +97,7 @@ if [[ "$RESTORE_MODE" == "true" ]]; then
     cp -r "$RESTORE_FILE"/* "$RESTORE_PATH"/
   fi
 
-  log "✅ Restore completed successfully."
+  log "Restore completed successfully."
   exit 0
 fi
 
@@ -105,7 +105,7 @@ fi
 BACKUP_DIR="$BACKUP_DESTINATION/$(date +"%Y-%m-%d_%H-%M-%S")"
 mkdir -p "$BACKUP_DIR"
 
-log "🚀 Starting backup..."
+log "Starting backup..."
 
 # === Collect Files ===
 FILES_TO_BACKUP=()
@@ -120,10 +120,10 @@ fi
 if [[ ${#FILES_TO_BACKUP[@]} -eq 0 ]]; then
   DEFAULT_DIR="$PROJECT_DIR/data"
   if [ -d "$DEFAULT_DIR" ]; then
-    log "📂 No files specified — defaulting to all files in data/"
+    log " No files specified — defaulting to all files in data/"
     FILES_TO_BACKUP=("$DEFAULT_DIR"/*)
   else
-    log "❌ No files or data folder found!"
+    log " No files or data folder found!"
     exit 1
   fi
 fi
@@ -143,17 +143,17 @@ for FILE in "${FILES_TO_BACKUP[@]}"; do
 
   for pattern in $EXCLUDE_PATTERNS; do
     if [[ "$FILE" == *"$pattern"* ]]; then
-      log "⚠️  Skipped (excluded): $FILE"
+      log "  Skipped (excluded): $FILE"
       continue 2
     fi
   done
 
   if [[ -f "$FILE" ]]; then
     if [[ "$DRY_RUN" == "true" ]]; then
-      log "🧪 Would back up: data/$BASENAME"
+      log " Would back up: data/$BASENAME"
     else
       cp "$FILE" "$BACKUP_DIR"/
-      log "✅ Backed up: data/$BASENAME"
+      log " Backed up: data/$BASENAME"
     fi
 
     if [[ -d "$PREVIOUS_BACKUP" && -f "$PREVIOUS_BACKUP/$BASENAME" ]]; then
@@ -166,7 +166,7 @@ done
 
 # === Newly Added File Summary ===
 if [[ ${#NEW_FILES[@]} -gt 0 ]]; then
-  log "🆕 Newly Added Files:"
+  log "Newly Added Files:"
   echo "--------------------------------------------" | tee -a "$LOG_FILE"
   for NEW_FILE in "${NEW_FILES[@]}"; do
     echo "$NEW_FILE" | tee -a "$LOG_FILE"
@@ -180,7 +180,7 @@ if [[ "$COMPRESS" == "true" && "$DRY_RUN" != "true" ]]; then
   tar -czf "$TAR_FILE" -C "$BACKUP_DIR" . >/dev/null 2>&1
   rm -rf "$BACKUP_DIR"
   BACKUP_OUTPUT="$TAR_FILE"
-  log "📦 Compressed backup created: $(basename "$TAR_FILE")"
+  log " Compressed backup created: $(basename "$TAR_FILE")"
 else
   BACKUP_OUTPUT="$BACKUP_DIR"
 fi
@@ -189,7 +189,7 @@ fi
 if [[ "$DRY_RUN" != "true" ]]; then
   CHECKSUM_FILE="$BACKUP_OUTPUT.sha256"
   find "$BACKUP_OUTPUT" -type f -exec sha256sum {} \; > "$CHECKSUM_FILE"
-  log "🔐 Checksum file created: $(basename "$CHECKSUM_FILE")"
+  log " Checksum file created: $(basename "$CHECKSUM_FILE")"
 fi
 
 # === Cleanup Rotation ===
@@ -199,18 +199,18 @@ if [[ "$DRY_RUN" != "true" ]]; then
     OLD_BACKUPS=$(ls -1t "$BACKUP_DESTINATION" | tail -n +$((KEEP_COUNT + 1)))
     for OLD in $OLD_BACKUPS; do
       rm -rf "$BACKUP_DESTINATION/$OLD"
-      log "🧹 Removed old backup: $OLD"
+      log " Removed old backup: $OLD"
     done
   fi
 fi
 
 # === Completion ===
 if [[ "$DRY_RUN" == "true" ]]; then
-  log "🧪 Dry-run completed — no files copied or deleted."
+  log " Dry-run completed — no files copied or deleted."
 else
-  log "🎯 Backup process completed successfully."
-  log "✅ Backup saved at: backups/$(basename "$BACKUP_OUTPUT")"
-  log "📘 Log file: backup.log"
+  log "Backup process completed successfully."
+  log " Backup saved at: backups/$(basename "$BACKUP_OUTPUT")"
+  log " Log file: backup.log"
 fi
 
 echo ""
