@@ -1,15 +1,15 @@
-[Fri, Nov  7, 2025 10:38:41 PM] 🚀 Starting backup...
-[Fri, Nov  7, 2025 10:38:41 PM] 📂 No files specified — defaulting to all files in data/
-[Fri, Nov  7, 2025 10:38:41 PM] ✅ Backed up: data/config.yaml
-[Fri, Nov  7, 2025 10:38:42 PM] ✅ Backed up: data/k venkatesh(RIS00472)DevOps1.txt
-[Fri, Nov  7, 2025 10:38:42 PM] ✅ Backed up: data/kilaru venkateswararao(RIS00472)DevOps1.txt
-[Fri, Nov  7, 2025 10:38:42 PM] ✅ Backed up: data/kilaru venkateswararao.docx
-[Fri, Nov  7, 2025 10:38:42 PM] ✅ Backed up: data/notes.txt
-[Fri, Nov  7, 2025 10:38:43 PM] ✅ Backed up: data/report.txt
-[Fri, Nov  7, 2025 10:38:43 PM] 🔐 Checksum file created: 2025-11-07_22-38-41.sha256
-[Fri, Nov  7, 2025 10:38:44 PM] 🧹 Removed old backup: 2025-11-07_22-32-34.sha256
-[Fri, Nov  7, 2025 10:38:44 PM] 🧹 Removed old backup: 2025-11-07_22-25-54
-[Fri, Nov  7, 2025 10:38:44 PM] 🎯 Backup process completed successfully.
-[Fri, Nov  7, 2025 10:38:44 PM] ✅ Backup saved at: backups/2025-11-07_22-38-41
-[Fri, Nov  7, 2025 10:38:44 PM] 📘 Log file: backup.log
+[Fri, Nov  7, 2025 10:38:41 PM]  Starting backup...
+[Fri, Nov  7, 2025 10:38:41 PM]  No files specified — defaulting to all files in data/
+[Fri, Nov  7, 2025 10:38:41 PM]  Backed up: data/config.yaml
+[Fri, Nov  7, 2025 10:38:42 PM]  Backed up: data/k venkatesh(RIS00472)DevOps1.txt
+[Fri, Nov  7, 2025 10:38:42 PM]  Backed up: data/kilaru venkateswararao(RIS00472)DevOps1.txt
+[Fri, Nov  7, 2025 10:38:42 PM]  Backed up: data/kilaru venkateswararao.docx
+[Fri, Nov  7, 2025 10:38:42 PM]  Backed up: data/notes.txt
+[Fri, Nov  7, 2025 10:38:43 PM]  Backed up: data/report.txt
+[Fri, Nov  7, 2025 10:38:43 PM]  Checksum file created: 2025-11-07_22-38-41.sha256
+[Fri, Nov  7, 2025 10:38:44 PM]  Removed old backup: 2025-11-07_22-32-34.sha256
+[Fri, Nov  7, 2025 10:38:44 PM]  Removed old backup: 2025-11-07_22-25-54
+[Fri, Nov  7, 2025 10:38:44 PM]  Backup process completed successfully.
+[Fri, Nov  7, 2025 10:38:44 PM]  Backup saved at: backups/2025-11-07_22-38-41
+[Fri, Nov  7, 2025 10:38:44 PM]  Log file: backup.log
 
