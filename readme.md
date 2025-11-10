@@ -42,8 +42,7 @@ graded_task_backup_system/
 ├── backups/ # Generated backups with timestamps
 └── README.md # Project documentation
 
-yaml
-Copy code
+
 
 ---
 
@@ -60,35 +59,27 @@ MONTHLY_KEEP=3
 Usage Guide
  Give script execute permission
 bash
-Copy code
 chmod +x backup.sh
  Run a standard backup
 bash
-Copy code
 ./backup.sh
  Backup with compression
 bash
-Copy code
 ./backup.sh --compress
  Dry run (simulate actions)
 bash
-Copy code
 ./backup.sh --dry-run
  Backup recently changed files
 bash
-Copy code
 ./backup.sh --recent 2d
  List all backups
 bash
 Copy code
 ./backup.sh --list
  Restore from backup
-bash
-Copy code
 ./backup.sh --restore backups/backup-2025-11-07_22-38-41.tar.gz --to restore_test/
  Example Output
 yaml
-Copy code
 [Fri, Nov  7, 2025 10:38:41 PM]  Starting backup...
 [Fri, Nov  7, 2025 10:38:41 PM]  No files specified — defaulting to all files in data/
 [Fri, Nov  7, 2025 10:38:41 PM]  Backed up: data/config.yaml
@@ -113,13 +104,9 @@ Logs all actions to backup.log and backup.txt
  Backup Integrity (Checksum)
 Each backup run creates a .sha256 file:
 
-yaml
-Copy code
 2025-11-07_22-38-41.sha256
 To verify file integrity later:
-
 bash
-Copy code
 sha256sum -c backups/2025-11-07_22-38-41.sha256
  Testing Process
 Test	Description	Result
@@ -143,9 +130,6 @@ Add email notifications for success/failure
 Integrate cron scheduling for daily backups
 
 Build a simple web dashboard for monitoring
-
- License
-MIT License © 2025 Kilaru Venkatesh
 
  Connect
 GitHub Repository:
