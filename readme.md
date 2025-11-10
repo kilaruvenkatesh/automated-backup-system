@@ -151,7 +151,5 @@ MIT License © 2025 Kilaru Venkatesh
 GitHub Repository:
  https://github.com/kilaru-venkatesh/automated-backup-system
 
-yaml
-Copy code
 
 ---
