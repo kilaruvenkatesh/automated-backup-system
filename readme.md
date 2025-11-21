@@ -100,8 +100,8 @@ Backups older than these are deleted.
 
 ```
 backups/
- ├── backup-2025-02-01-1200.tar.gz
- ├── backup-2025-01-28-1200.tar.gz.md5
+ ├── backup-2025-02-01-1200.sha256
+ ├── backup-2025-01-28-1200.sha256
  └── ...
 ```
 
@@ -137,7 +137,7 @@ backups/
 
 ```
 [2025-02-12 14:30:15] INFO: Starting backup of /home/user/Documents
-[2025-02-12 14:30:45] SUCCESS: Backup created: backup-2025-02-12-1430.tar.gz
+[2025-02-12 14:30:45] SUCCESS: Backup created: backup-2025-02-12-1430.sha256
 [2025-02-12 14:30:50] SUCCESS: Checksum verified successfully
 ```
 
