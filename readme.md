@@ -1,139 +1,163 @@
-# Automated Backup System  
-###  Developed by: Kilaru Venkatesh (RIS00472)
+# Automated Backup System
 
-A fully automated **Bash-based backup system** with compression, checksum verification, rotation cleanup, and restore support.  
-This project demonstrates advanced shell scripting for real-world DevOps-style automation.
+## A. Project Overview
 
----
+This project provides an automated backup script that creates compressed backups of important folders, verifies them, and manages old backups to save storage space. It ensures that your files are safely archived and that only the most relevant backups are kept.
 
-##  Project Overview
+### What the Script Does
 
-The **Automated Backup System** simplifies data protection by automatically creating compressed backups of important files, verifying their integrity, and cleaning up old backups.
+* Takes a folder as input and creates a `.tar.gz` compressed backup file.
+* Generates a checksum to ensure that the backup is valid and not corrupted.
+* Skips unwanted folders like `.git`, `node_modules`, and temporary cache folders.
+* Automatically deletes older backups while keeping recent daily, weekly, and monthly backups.
+* Logs every action to a `backup.log` file.
+* Supports a **dry-run mode** to preview actions without making changes.
 
-It ensures your files are safely archived, easily restorable, and that only the most recent backups are kept — saving both time and storage.
+### Why It Is Useful
 
----
-
-##  Features
-
-| Feature | Description |
-|----------|--------------|
-|  **Automated Backups** | Creates timestamped folders for every run |
-|  **Compression** | Option to create `.tar.gz` archives |
-|  **Checksum Validation** | Generates `.sha256` file for data integrity verification |
-|  **Rotation Cleanup** | Automatically deletes old backups (keeps last 5 by default) |
-|  **Exclusion Support** | Skips unnecessary folders like `.git`, `node_modules`, etc. |
-|  **Dry Run Mode** | Simulate backups without writing data |
-|  **Logging System** | Saves all actions in `backup.log` |
-|  **Restore Mode** | Extracts or copies backups back into a chosen directory |
-|  **List Mode** | Displays all existing backups |
-|  **Recent Backup Option** | Backup only files modified in the last ‘X’ days |
+Manually backing up files can be time‑consuming and easy to forget. This script automates the entire backup process, ensures data safety, and avoids wasted storage due to too many old backups.
 
 ---
 
-##  Project Structure
+## B. How to Use It
 
-graded_task_backup_system/
-├── backup.sh # Main script
-├── backup.conf # Configuration file
-├── backup.txt # Output log (for easy viewing)
-├── backup.log # Full detailed log
-├── data/ # Folder containing files to back up
-├── backups/ # Generated backups with timestamps
-└── README.md # Project documentation
+### 1. Installation
 
+1. Place the script file `backup.sh` and `backup.conf` in the same folder.
+2. Make the script executable:
 
+```
+chmod +x backup.sh
+```
 
----
+3. (Optional) Edit `backup.conf` to customize:
 
-##  Configuration (backup.conf)
-
-You can customize default settings by editing `backup.conf`:
-
-```bash
-BACKUP_DESTINATION=backups
-EXCLUDE_PATTERNS=".git node_modules .cache temp"
+```
+BACKUP_DESTINATION=/home/backups
+EXCLUDE_PATTERNS=".git,node_modules,.cache"
 DAILY_KEEP=7
 WEEKLY_KEEP=4
 MONTHLY_KEEP=3
-Usage Guide
- Give script execute permission
-bash
-chmod +x backup.sh
- Run a standard backup
-bash
-./backup.sh
- Backup with compression
-bash
-./backup.sh --compress
- Dry run (simulate actions)
-bash
-./backup.sh --dry-run
- Backup recently changed files
-bash
-./backup.sh --recent 2d
- List all backups
-bash
-Copy code
-./backup.sh --list
- Restore from backup
-./backup.sh --restore backups/backup-2025-11-07_22-38-41.tar.gz --to restore_test/
- Example Output
-yaml
-[Fri, Nov  7, 2025 10:38:41 PM]  Starting backup...
-[Fri, Nov  7, 2025 10:38:41 PM]  No files specified — defaulting to all files in data/
-[Fri, Nov  7, 2025 10:38:41 PM]  Backed up: data/config.yaml
-[Fri, Nov  7, 2025 10:38:42 PM]  Backed up: data/k venkatesh(RIS00472)DevOps1.txt
-[Fri, Nov  7, 2025 10:38:43 PM]  Checksum file created: 2025-11-07_22-38-41.sha256
-[Fri, Nov  7, 2025 10:38:44 PM]  Backup process completed successfully.
-[Fri, Nov  7, 2025 10:38:44 PM]  Backup saved at: backups/2025-11-07_22-38-41
-[Fri, Nov  7, 2025 10:38:44 PM]  Log file: backup.log
- How It Works
-Detects files (or defaults to data/)
+```
 
-Creates a timestamped backup folder
+### 2. Basic Usage Examples
 
-Optionally compresses the data
+| Purpose                        | Command Example                                                                        |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| Run backup normally            | `./backup.sh /path/to/folder`                                                |
+| Test without changing anything | `./backup.sh --dry-run /path/to/folder`                                      |
+| List existing backups          | `./backup.sh --list`                                                         |
+| Restore from a backup          | `./backup.sh --restore backup-YYYY-MM-DD-HHMM.tar.gz --to /path/to/restore/` |
 
-Generates a checksum for integrity
+### 3. Command Options
 
-Cleans up old backups automatically
-
-Logs all actions to backup.log and backup.txt
-
- Backup Integrity (Checksum)
-Each backup run creates a .sha256 file:
-
-2025-11-07_22-38-41.sha256
-To verify file integrity later:
-bash
-sha256sum -c backups/2025-11-07_22-38-41.sha256
- Testing Process
-Test	Description	Result
-Dry Run	Previewed without actual file copy	 Successful
-Compression	Created .tar.gz archive	 Passed
-Checksum	Verified generated hash	 Passed
-Restore	Extracted to restore_test folder	 Restored Successfully
-Rotation	Old backups deleted automatically	 Working
-
- Known Limitations
-Limitation	Description
-Incremental backups not supported	Always performs full backups
-Email notifications not implemented	Planned feature for next version
-Requires GNU utilities (sha256sum, tar)	Default in Linux / WSL / Git Bash
-
- Future Improvements
-Add incremental backup support
-
-Add email notifications for success/failure
-
-Integrate cron scheduling for daily backups
-
-Build a simple web dashboard for monitoring
-
- Connect
-GitHub Repository:
- https://github.com/kilaru-venkatesh/automated-backup-system
-
+| Option                         | Meaning                                                 |
+| ------------------------------ | ------------------------------------------------------- |
+| `--dry-run`                    | Shows what the script *would* do without making changes |
+| `--list`                       | Displays all available backups                          |
+| `--restore <file> --to <path>` | Extracts backup contents into a destination folder      |
 
 ---
+
+## C. How It Works
+
+### Backup Naming Format
+
+```
+backup-YYYY-MM-DD-HHMM.tar.gz
+```
+
+Example:
+
+```
+backup-2024-11-03-1430.tar.gz
+```
+
+<img width="1188" height="424" alt="image" src="https://github.com/user-attachments/assets/1f134445-03e7-47c3-b83f-9a13bbcf4e10" />
+
+### Excluding Unnecessary Files
+
+The script reads patterns from `EXCLUDE_PATTERNS` and passes them to `tar`.
+Common skipped folders: `.git`, `node_modules`, `.cache`
+
+### Checksum Verification
+
+* After backup: A checksum (SHA256 by default) is generated.
+* The checksum is stored in a `.md5` file.
+* During verification, the script recomputes and compares the two checksums.
+
+### Backup Rotation Rules
+
+The script keeps:
+
+* The **last 7 daily** backups
+* The **last 4 weekly** backups (one backup per week)
+* The **last 3 monthly** backups (one backup per month)
+
+Backups older than these are deleted.
+
+### Folder Structure
+
+```
+backups/
+ ├── backup-2025-02-01-1200.tar.gz
+ ├── backup-2025-01-28-1200.tar.gz.md5
+ └── ...
+```
+
+---
+
+## D. Design Decisions
+
+### Why This Approach?
+
+* **Tar and gzip** provide fast and widely supported compression.
+* **SHA256 checksums** are reliable for detecting corruption.
+* **Rotation by date** ensures predictable backup retention.
+
+### Challenges Faced
+
+| Challenge                                   | Solution                                  |
+| ------------------------------------------- | ----------------------------------------- |
+| Preventing two backup runs at the same time | Added a lock file `/tmp/backup.lock`      |
+| Avoiding unnecessary data in backups        | User‑configurable exclude patterns        |
+| Saving storage space                        | Implemented daily/weekly/monthly rotation |
+
+---
+
+## E. Testing
+
+### Testing Steps
+
+1. Ran the script in `--dry-run` mode to confirm actions.
+2. Created real backups and verified checksum validation.
+3. Deleted and restored sample test folders.
+
+### Example Output
+
+```
+[2025-02-12 14:30:15] INFO: Starting backup of /home/user/Documents
+[2025-02-12 14:30:45] SUCCESS: Backup created: backup-2025-02-12-1430.tar.gz
+[2025-02-12 14:30:50] SUCCESS: Checksum verified successfully
+```
+
+---
+
+## F. Known Limitations
+
+| Limitation                         | Explanation                                         |
+| ---------------------------------- | --------------------------------------------------- |
+| Incremental backups not supported  | Script currently backs up full folder every time    |
+| Email notifications simulated only | Real email sending requires configuring mail server |
+| Date processing uses GNU date      | On macOS, may require installing `coreutils`        |
+
+### Future Improvements
+
+* Add **incremental backup support** to save time and storage.
+* Add real **email alerts** for success/failure.
+* Add **GUI or web interface** for easier usage.
+
+---
+G. Conclusion
+
+This automated backup system helps ensure your important files are safely archived and managed. It simplifies the entire backup process, from creating compressed backups to verifying them and cleaning up old files. While there are areas to improve, the script provides a strong foundation for reliable and efficient backups.
